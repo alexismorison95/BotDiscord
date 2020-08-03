@@ -1,5 +1,5 @@
-import { Message } from "discord.js";
-import { prefix, respuestas } from "./config.json";
+import { Message, Client } from "discord.js";
+import { respuestas } from "./config.json";
 
 
 export function saludarBot(message: Message) {
@@ -17,18 +17,43 @@ export function saludarBot(message: Message) {
 
 export function reaccionarAlMeme(message: Message) {
 
-    const pos = Math.floor(Math.random() * respuestas.length);
+    if (message.attachments.array().length > 0) {
 
-    message.reply(respuestas[pos]);
+        const pos = Math.floor(Math.random() * respuestas.length);
+
+        message.reply(respuestas[pos]);
+    }
+    else {
+
+        message.reply('Adjunta algo bobo');
+    }
 }
 
 
 export function pedirAyuda(message: Message) {
 
-    message.channel.send("Comandos \n\n!!hola o holis: Saludar al Bot \n!!meme: El Bot reacciona a tu meme \n!!cual es mi foto o cual es mi foto?: El Bot reacciona a tu meme");
+    message.reply("__Comandos:__ \n\n**!!hola** o **!!holis**: Saludar al Bot \n**!!meme**: El Bot reacciona a tu meme \n**!!cual es mi foto**: El Bot reacciona a tu meme \n**!!quien es** seguido de pregunta: Preguntar algo al Bot ");
 }
+
 
 export function avatar(message: Message) {
     
     message.reply(message.author.displayAvatarURL());
+}
+
+
+export function preguntar(message: Message, cliente: Client, content: string) {
+
+    const miembros = [];
+
+    for (let i = 0; i < cliente.users.cache.array().length; i++) {
+
+        miembros.push(cliente.users.cache.array()[i].username);
+    }
+
+    const pos = Math.floor(Math.random() * miembros.length);
+
+    const resp = content.slice(8);
+    
+    message.channel.send(`${resp[0].toUpperCase()}${resp.slice(4)} es ${miembros[pos]}`);
 }

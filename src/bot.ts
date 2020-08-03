@@ -4,7 +4,7 @@ config();
 
 import { Client, Message } from "discord.js";
 
-import { pedirAyuda, reaccionarAlMeme, saludarBot, avatar } from "./logic";
+import { pedirAyuda, reaccionarAlMeme, saludarBot, avatar, preguntar } from "./logic";
 import { prefix } from "./config.json";
 
 
@@ -15,7 +15,7 @@ const client: Client = new Client();
 // Eventos
 client.on('ready', () => {
 
-    console.log('MorrisBot is ready!');
+    console.log('Bot is ready!');
 });
 
 client.on('message', async (message: Message) => {
@@ -37,9 +37,14 @@ client.on('message', async (message: Message) => {
         pedirAyuda(message);
     }
 
-    if (content.startsWith(`${prefix}cual es mi foto` || `${prefix}cual es mi foto?`)) {
+    if (content.startsWith(`${prefix}cual es mi foto`)) {
 
         avatar(message);
+    }
+
+    if (content.startsWith(`${prefix}quien es`)) {
+
+        preguntar(message, client, content);
     }
 });
 

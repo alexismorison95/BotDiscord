@@ -19,7 +19,7 @@ const config_json_1 = require("./config.json");
 const client = new discord_js_1.Client();
 // Eventos
 client.on('ready', () => {
-    console.log('MorrisBot is ready!');
+    console.log('Bot is ready!');
 });
 client.on('message', (message) => __awaiter(void 0, void 0, void 0, function* () {
     const content = message.content.toLowerCase();
@@ -32,8 +32,11 @@ client.on('message', (message) => __awaiter(void 0, void 0, void 0, function* ()
     if (content.startsWith(`${config_json_1.prefix}ayuda`)) {
         logic_1.pedirAyuda(message);
     }
-    if (content.startsWith(`${config_json_1.prefix}cual es mi foto` || `${config_json_1.prefix}cual es mi foto?`)) {
+    if (content.startsWith(`${config_json_1.prefix}cual es mi foto`)) {
         logic_1.avatar(message);
+    }
+    if (content.startsWith(`${config_json_1.prefix}quien es`)) {
+        logic_1.preguntar(message, client, content);
     }
 }));
 // Inicio de sesion para el Bot
