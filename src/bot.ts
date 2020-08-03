@@ -3,45 +3,46 @@ import { config } from "dotenv";
 config();
 
 import { Client, Message } from "discord.js";
-import { prefix, respuestas } from "./config.json";
 
-// Instancio un cliente de discord
+import { pedirAyuda, reaccionarAlMeme, saludarBot, avatar } from "./logic";
+import { prefix } from "./config.json";
+
+
+// Instancio un cliente de discord (Bot)
 const client: Client = new Client();
+
 
 // Eventos
 client.on('ready', () => {
+
     console.log('MorrisBot is ready!');
 });
 
-client.on('message', (message: Message) => {
+client.on('message', async (message: Message) => {
 
-    console.log(message.content);
+    const content = message.content.toLowerCase();
 
-    if (message.content.startsWith(`${prefix}hola`) || message.content.startsWith(`${prefix}Hola`)) {
+    if (content.startsWith(`${prefix}hola`) || content.startsWith(`${prefix}holis`)) {
 
-        if (message.member?.hasPermission(['ADMINISTRATOR'])) {
-
-            message.reply('Holiss kapi 🧉');
-        }
-        else {
-            message.reply('Holiss 🧉');
-        }
+        saludarBot(message);
     }
 
-    if (message.content.startsWith(`${prefix}meme`) || message.content.startsWith(`${prefix}Meme`)) {
+    if (content.startsWith(`${prefix}meme`)) {
 
-        //message.reply('Buenardo 🧉');
-
-        const pos = Math.floor(Math.random() * respuestas.length);
-
-        message.reply(respuestas[pos]);
+        reaccionarAlMeme(message);
     }
 
-    if (message.content.startsWith(`${prefix}comandos`) || message.content.startsWith(`${prefix}Comandos`)) {
+    if (content.startsWith(`${prefix}ayuda`)) {
 
-        message.channel.send("Comandos \n\n!!hola: Saludar al Bot \n!!meme: El Bot reacciona a tu meme");
+        pedirAyuda(message);
+    }
+
+    if (content.startsWith(`${prefix}cual es mi foto` || `${prefix}cual es mi foto?`)) {
+
+        avatar(message);
     }
 });
+
 
 // Inicio de sesion para el Bot
 client.login(process.env.DISCORD_TOKEN);
