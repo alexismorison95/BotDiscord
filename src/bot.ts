@@ -18,7 +18,9 @@ client.on('ready', () => {
     console.log('Bot is ready!');
 });
 
-client.on('message', async (message: Message) => {
+client.on('message', (message: Message) => {
+
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const content = message.content.toLowerCase();
 
@@ -27,22 +29,22 @@ client.on('message', async (message: Message) => {
         saludarBot(message);
     }
 
-    if (content.startsWith(`${prefix}meme`)) {
+    else if (content.startsWith(`${prefix}meme`)) {
 
         reaccionarAlMeme(message);
     }
 
-    if (content.startsWith(`${prefix}ayuda`)) {
+    else if (content.startsWith(`${prefix}ayuda`)) {
 
         pedirAyuda(message);
     }
 
-    if (content.startsWith(`${prefix}cual es mi foto`)) {
+    else if (content.startsWith(`${prefix}cual es mi foto`)) {
 
         avatar(message);
     }
 
-    if (content.startsWith(`${prefix}quien es`)) {
+    else if (content.startsWith(`${prefix}quien es`)) {
 
         preguntar(message, client, content);
     }

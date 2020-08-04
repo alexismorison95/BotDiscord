@@ -32,7 +32,7 @@ export function reaccionarAlMeme(message: Message) {
 
 export function pedirAyuda(message: Message) {
 
-    message.reply("__Comandos:__ \n\n**!!hola** o **!!holis**: Saludar al Bot \n**!!meme**: El Bot reacciona a tu meme \n**!!cual es mi foto**: El Bot reacciona a tu meme \n**!!quien es** seguido de pregunta: Preguntar algo al Bot ");
+    message.reply("__Comandos:__ \n\n**!!hola** o **!!holis**: Saludar al Bot \n**!!meme**: El Bot reacciona a tu meme \n**!!cual es mi foto**: El Bot envia tu avatar \n**!!quien es** seguido de pregunta: Preguntar algo al Bot ");
 }
 
 
